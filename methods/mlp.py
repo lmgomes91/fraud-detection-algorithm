@@ -17,11 +17,19 @@ def mlp(credit_card_df: pandas.DataFrame):
 
     print('Training model')
     # Create an MLP Classifier model
-    mlp_classifier = MLPClassifier(hidden_layer_sizes=(100, 50), max_iter=1000, random_state=42)
+    mlp_classifier = MLPClassifier(
+        hidden_layer_sizes=(200, 100),
+        max_iter=5000,
+        random_state=42,
+        solver='sgd', # noqa
+        learning_rate='constant',
+        tol=1e-5,
+        learning_rate_init=0.1
+    )
     # Fit the model to the training data
     mlp_classifier.fit(x_train, y_train)
     # Prediction
-    y_pred = mlp_classifier.predict(x_test)
+    y_pred = mlp_classifier.predict(x_test) # noqa
 
     print('\n\n##########Evaluating###########\n\n')
     print(f'Accuracy: {mlp_classifier.score(x_test, y_test)}')
