@@ -3,6 +3,7 @@ import pandas
 from utils.dataset_handle import pre_processing_dataframe
 from sklearn.model_selection import train_test_split
 from sklearn.neural_network import MLPClassifier  # for classification
+from sklearn.metrics import confusion_matrix, classification_report
 
 
 def mlp(credit_card_df: pandas.DataFrame):
@@ -19,7 +20,10 @@ def mlp(credit_card_df: pandas.DataFrame):
     mlp_classifier = MLPClassifier(hidden_layer_sizes=(100, 50), max_iter=1000, random_state=42)
     # Fit the model to the training data
     mlp_classifier.fit(x_train, y_train)
+    # Prediction
+    y_pred = mlp_classifier.predict(x_test)
 
-    print('Evaluating')
-    accuracy = mlp_classifier.score(x_test, y_test)
-    print(f"Accuracy: {accuracy}")
+    print('\n\n##########Evaluating###########\n\n')
+    print(f'Accuracy: {mlp_classifier.score(x_test, y_test)}')
+    print(f'\nConfusion matrix\n: {confusion_matrix(y_test, y_pred)}')
+    print(f'\nClassification Report:\n {classification_report(y_test, y_pred)}')
