@@ -25,5 +25,5 @@ def mlp(credit_card_df: pandas.DataFrame):
 
     print('\n\n##########Evaluating###########\n\n')
     print(f'Accuracy: {mlp_classifier.score(x_test, y_test)}')
-    print(f'\nConfusion matrix\n: {confusion_matrix(y_test, y_pred)}')
+    print(f'\nConfusion matrix:\n {confusion_matrix(y_test, y_pred)}')
     print(f'\nClassification Report:\n {classification_report(y_test, y_pred)}')
