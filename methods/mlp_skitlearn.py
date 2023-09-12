@@ -19,7 +19,7 @@ def mlp_sklearn(credit_card_df: pandas.DataFrame):
     # Create an MLP Classifier model
     mlp_classifier = MLPClassifier(
         hidden_layer_sizes=(200, 100, 50),
-        max_iter=1000,
+        max_iter=5000,
         random_state=42,
         activation='relu',
         solver='sgd', # noqa
@@ -30,13 +30,13 @@ def mlp_sklearn(credit_card_df: pandas.DataFrame):
     )
     # Fit the model to the training data
     mlp_classifier.fit(x_train, y_train)
-    print(f'\nElapsed time in training: {time.time() - start_time} seconds')
+    print(f'\nElapsed time in training: {(time.time() - start_time)/60} minutes')
 
     # Prediction
     y_pred = mlp_classifier.predict(x_test) # noqa
 
     print('\n\n##########Evaluating###########\n\n')
-    print(f'\nTotal elapsed time: {time.time() - start_time} seconds')
+    print(f'\nTotal elapsed time: {(time.time() - start_time)/60} minutes')
     print(f'Accuracy: {mlp_classifier.score(x_test, y_test)}')
     print(f'\nConfusion matrix:\n {confusion_matrix(y_test, y_pred)}')
     print(f'\nClassification Report:\n {classification_report(y_test, y_pred)}')
