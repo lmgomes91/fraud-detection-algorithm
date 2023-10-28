@@ -8,24 +8,24 @@ from sklearn.metrics import confusion_matrix, classification_report
 
 def mlp_sklearn(credit_card_df: pandas.DataFrame):
 
-    print('Processing data')
+    print('MLP SKLEARN\nProcessing data')
     x_data, y_data = pre_processing_dataframe(credit_card_df)
 
     print('Splitting data')
-    x_train, x_test = train_test_split(x_data, test_size=0.3, random_state=42)
-    y_train, y_test = train_test_split(y_data, test_size=0.3, random_state=42)
+    x_train, x_test, y_train, y_test = train_test_split(x_data, y_data, test_size=0.3, random_state=42)
     start_time = time.time()
     print('Training model')
     # Create an MLP Classifier model
     mlp_classifier = MLPClassifier(
-        hidden_layer_sizes=(200, 100, 50),
-        max_iter=5000,
+        hidden_layer_sizes=(100, 100, 100, 100),
+        max_iter=2000,
         random_state=42,
-        activation='relu',
-        solver='sgd', # noqa
-        learning_rate='constant',
+        activation='relu', # noqa
+        solver='adam', # noqa
+        learning_rate='adaptive',
         tol=1e-6,
-        learning_rate_init=.1,
+        learning_rate_init=0.001,
+        alpha=0.001,
         verbose=False
     )
     # Fit the model to the training data
